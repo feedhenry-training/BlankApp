@@ -1,1 +1,0 @@
-Demonstrate how to create cloud functions.

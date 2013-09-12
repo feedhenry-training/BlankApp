@@ -2,6 +2,8 @@
   "name": "fh-app",
   "version": "0.1.0",
   "dependencies" : {
-    "fh-nodeapp" : "*"
+    "fh-webapp" : "*",
+    "fh-api" : "*",
+    "express" : "3.3.4"
   }
 }

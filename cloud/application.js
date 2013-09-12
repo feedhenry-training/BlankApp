@@ -1,7 +1,20 @@
-/* Entry point for the cloud app. 
- * By default, you can use fh-nodeapp as the web framework, which wll provide all the FeedHenry Cloud APIs, analytics and stats information. 
- * If you don't want any of these, alternatively, you can use any other Node.js web framework, and initialize it here.
- */
-var nodeapp = require("fh-nodeapp");
-nodeapp.HostApp.init();
-nodeapp.HostApp.serveApp(require('main.js'));
+var express = require('express');
+
+//FeedHenry services
+var webapp = require('fh-webapp');
+$fh = require('fh-api');
+var mainjs = require('main.js');
+
+var app = express();
+
+//enable FeedHenry services
+app.use('/sys', webapp.sys(mainjs));
+app.use('/mbaas', webapp.mbaas);
+app.use('/cloud', webapp.cloud(mainjs));
+
+// You can define custom URL handlers here, like this one:
+app.use('/', function(req, res){
+  res.end('Your Cloud App is Ready');
+});
+
+module.exports = app.listen(process.env.FH_PORT || process.env.VCAP_APP_PORT || 8001);
